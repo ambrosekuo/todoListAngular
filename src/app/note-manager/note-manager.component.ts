@@ -13,9 +13,9 @@ export class NoteManagerComponent implements OnInit {
   public noteCounter;
   public newNote;
   public noteList;
-  public completdList;
+  public completedList;
   public cancelledList;
-  public mainNote;
+  public currentNote;
   public completedNote;
   public cancelledNote;
 
@@ -23,12 +23,12 @@ export class NoteManagerComponent implements OnInit {
     this.noteCounter = 1;
   this.newNote = false;
   this.noteList = [];
-  this.completdList = [];
+  this.completedList = [];
   this.cancelledList = [];
    }
 
   ngOnInit() {
-    this.mainNote = document.getElementById("main-note-container");
+    this.currentNote = document.getElementById("main-note-container");
     this.completedNote = document.getElementById("completedContainer");
     this.cancelledNote = document.getElementById("cancelledContainer");
   }
@@ -58,70 +58,102 @@ export class NoteManagerComponent implements OnInit {
 
   addObjectNote(task: string, complete: boolean, description: string) {
     let a: Note;
-    this.noteCounter++;
-    a = new Note(task, complete, description, this.noteCounter);
-    document.getElementById("main-note-container").appendChild(a.div);
+    this.addNewNote(task, complete, description);
   }
 
-  addNewNote() {
+  addInputNote() {
     const templateTitle = document.getElementById(
       "template-title"
     ) as HTMLInputElement;
     const templateParagraph = document.getElementById(
       "template-paragraph"
     ) as HTMLInputElement;
-    let a: Note;
-    this.noteCounter++;
     let title = templateTitle.value;
     let paragraph = templateParagraph.value;
-    let completed = false;
-    this.noteList.push(new Note(title, completed, paragraph, this.noteCounter));
-    console.log(this.noteList);
-    console.log(this.noteList.length);
-    this.noteList[this.noteList.length-1].checkmarkButton.addEventListener('click', (e) => this.checkmarkButton(e));
-    this.noteList[this.noteList.length-1].nocheckmarkButton.addEventListener('click', (e) => this.nocheckmarkButton(e));
-    document.getElementById("templateNote").after(this.noteList[this.noteList.length-1].div);
+
+    this.addNewNote(title, false, paragraph);
+  }
+
+  addNewNote(title, completed, paragraph) {
+    this.noteCounter++;
+    let newNote = new Note(title, completed, paragraph, this.noteCounter);
+    let pushedArray;
+    if (!completed) {
+      pushedArray = this.noteList;
+    }
+    else {
+      pushedArray = this.completedList;
+    }
+    pushedArray.push(newNote);
+    pushedArray[pushedArray.length-1].checkmarkButton.addEventListener('click', (e) => this.checkmarkButton(e));
+    pushedArray[pushedArray.length-1].nocheckmarkButton.addEventListener('click', (e) => this.nocheckmarkButton(e));
+    if (!completed) {
+      document.getElementById("templateNote").after(pushedArray[pushedArray.length-1].div);
+    }
+    else {
+      document.querySelector("#completedTitle").after(pushedArray[pushedArray.length-1].div);
+      this.removeButtons(pushedArray[pushedArray.length-1]);
+    }
     this.cancelNewNote();
   }
 
   checkmarkButton(e) {
+    let parentDiv = e.target.closest(".notes");
+    let parentDivId = parentDiv.id.slice((parentDiv.id.search("note")+"note".length));
     let noteIndex = this.noteList.findIndex((element) => {
-      return element.id == e.target.id;
+      return element.id == parentDivId;
     });
     let noteMove = this.noteList[noteIndex];
     this.noteList.splice(noteIndex, 1);
-    document.getElementById('main-note-container').removeChild(noteMove.div);
-    this.completdList.push(noteMove);
-    document.getElementById('completedContainer').after(noteMove.div);
+    this.currentNote.removeChild(noteMove.div);
+    this.completedList.push(noteMove);
+    this.removeButtons(noteMove);
+    this.completedNote.after(noteMove.div); 
+    document.querySelector("#completedTitle").after(noteMove.div);
   }
 
   nocheckmarkButton(e) {
-    console.log(this.noteList);
-    console.log(this.noteList.length);
+    let parentDiv = e.target.closest(".notes");
+    let parentDivId = parentDiv.id.slice((parentDiv.id.search("note")+"note".length));
     let noteIndex = this.noteList.findIndex((element) => {
-      return element.id == e.target.id;
+      return element.id == parentDivId;
     });
     let noteMove = this.noteList[noteIndex];
     this.noteList.splice(noteIndex, 1);
-    document.getElementById('main-note-container').removeChild(noteMove.div);
+    this.currentNote.removeChild(noteMove.div);
+    this.removeButtons(noteMove);
     this.cancelledList.push(noteMove);
-    document.getElementById('completedContainer').after(noteMove.div);
+    document.querySelector("#cancelledTitle").after(noteMove.div);
+  }
+
+  removeButtons(note) {
+    let checkmark = note.div.querySelector(".title-completed-wrapper > .completed > .checkmark");
+    let nocheckmark = note.div.querySelector(".title-completed-wrapper > .completed > .nocheckmark");
+    let noteCompleted = note.div.querySelector(".title-completed-wrapper > .completed");
+    console.log(checkmark);
+    noteCompleted.removeChild(checkmark);
+    noteCompleted.removeChild(nocheckmark);
+
+    let undoButton = document.createElement('button');
+    undoButton.classList.add('undo');
+    undoButton.innerHTML = "UNDO";
+    noteCompleted.appendChild(undoButton);
   }
 
   mainTab(e) {
-    this.mainNote.style.display = 'block';
+    this.currentNote.style.display = 'block';
     this.completedNote.style.display = 'none';
     this.cancelledNote.style.display = 'none';
   }
 
   completedNoteTab(e) {
-    this.mainNote.style.display = 'none';
+    this.currentNote.style.display = 'none';
     this.completedNote.style.display = 'block';
     this.cancelledNote.style.display = 'none';
   }
 
   cancelledNoteTab(e) {
-    this.mainNote.style.display = 'none';
+    this.currentNote.style.display = 'none';
     this.completedNote.style.display = 'none';
     this.cancelledNote.style.display = 'block';
   }

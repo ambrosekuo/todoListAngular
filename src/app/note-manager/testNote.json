@@ -9,6 +9,11 @@
       "task": "My stask",
       "complete": false,
       "description": "My Task description"
+    },
+ {
+      "task": "Finished task",
+      "complete": true,
+      "description": "My Task description"
     }
   ]
 }
