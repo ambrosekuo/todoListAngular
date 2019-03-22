@@ -1,0 +1,83 @@
+<div id="noteTabs">
+  <button class="noteTab" id="currentButton" (click)="mainTab($event)">
+    Current
+  </button>
+  <button
+    class="noteTab"
+    id="completedButton"
+    (click)="completedNoteTab($event)"
+  >
+    Completed
+  </button>
+  <button
+    class="noteTab"
+    id="cancelledButton"
+    (click)="cancelledNoteTab($event)"
+  >
+    Cancelled
+  </button>
+</div>
+<div id="note-container">
+  <div id="main-note-container">
+    <div id="pageDim"></div>
+    <h1>TODO LIST</h1>
+    <div id="fileArea">
+      <label for="file">Choose file to upload</label>
+      <input type="file" id="file" name="file" (change)="importNote($event)" />
+    </div>
+    <div id="toolbar">
+      <button id="newNoteButton" (click)="newNoteWindow($event)">+</button>
+      <button (click)="clearNotes($event)">DELETE ALL</button>
+    </div>
+    <div id="templateNote">
+      <form class="template-note">
+        <label for="male">Title:</label>
+        <textarea type="text" id="template-title" name="title"> </textarea>
+        <br />
+        <label for="male">Body:</label>
+        <textarea type="text" id="template-paragraph" name="paragrph">
+        </textarea>
+      </form>
+      <p></p>
+      <button (click)="addNewNote($event)">New Note</button>
+      <button (click)="cancelNewNote($event)">Cancel</button>
+    </div>
+    <div class="modules notes" id="note2">
+      <div class="timestamp">3/15/2019</div>
+      <div class="title-completed-wrapper">
+        <div class="title">hi</div>
+        <div class="completed">
+          <button class="checkmark" (click)="checkmarkButton($event)"></button
+          ><button class="nocheckmark" (click)="nocheckmarkButton($event)"></button>
+        </div>
+      </div>
+      <p>zzzz</p>
+    </div>
+  </div>
+
+  <div id="completedContainer">
+    <h1>TODO LIST</h1>
+    <div id="fileArea">
+      <label for="file">Choose file to upload</label>
+      <input type="file" id="file" name="file" (change)="importNote($event)" />
+    </div>
+    <div class="modules notes" id="note2">
+      <div class="timestamp">3/15/2019</div>
+      <div class="title-completed-wrapper">
+        <div class="title">hi</div>
+        <div class="completed">
+          <button class="checkmark"></button
+          ><button class="nocheckmark"></button>
+        </div>
+      </div>
+      <p>zzzz</p>
+    </div>
+  </div>
+  <div id="cancelledContainer">
+    <h1>TODO LIST</h1>
+    <div id="fileArea">
+      <label for="file">Choose file to upload</label>
+      <input type="file" id="file" name="file" (change)="importNote($event)" />
+    </div>
+  </div>
+</div>

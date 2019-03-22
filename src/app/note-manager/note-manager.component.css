@@ -1,0 +1,255 @@
+#note-container {
+  position: relative;
+  margin: auto;
+  width: 50vw;
+  height: 50vh;
+}
+
+#main-note-container {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  margin: auto;
+  width: 100%;
+  background: rgb(235, 232, 226);
+  border: 0.1vw white solid;
+  border-radius: 10px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+#completedContainer {
+  display: none;
+  position: absolute;
+  left: 0;
+  z-index: 12;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgb(235, 232, 226);
+  border: 0.1vw white solid;
+  border-radius: 10px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+#cancelledContainer {
+    display: none;
+  position: absolute;
+  left: 0;
+  z-index: 12;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgb(235, 232, 226);
+  border: 0.1vw white solid;
+  border-radius: 10px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+#pageDim {
+  position: absolute;
+  z-index: 99;
+  width: 50%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  display: none;
+}
+
+#toolbar button {
+  font-size: 20px;
+  background: rgb(224, 228, 230);
+  border: 0.1vw black solid;
+  border-radius: 10px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+#toolbar button:hover {
+  background: rgb(154, 200, 223);
+  border-radius: 1px;
+}
+
+#newNoteButton {
+  font-size: 40px;
+}
+
+#noteTabs {
+    z-index: 1001;
+    margin-top: 20px;
+    display:block;
+    width: 100px;
+    background:grey;
+}
+
+.noteTab {
+    width: 100%;
+    float:left;
+    background: rgba(255, 217, 0, 0.24);
+    border-right: 0.4vw rgba(255, 217, 0, 0.24) solid;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+    font-weight: bold;
+}
+
+.noteTab:hover {
+    margin-left: 10px;
+    background: rgb(255, 217, 0);
+}
+
+#currentButton {
+   
+}
+
+#completedButton {
+}
+
+#cancelledButton {
+}
+
+#fileArea {
+  width: 50%;
+  border: 0.2vw rgb(228, 218, 218) solid;
+  border-radius: 5px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+h1 {
+  margin: auto;
+  width: 50%;
+  border: 0.1vw white solid;
+  border-radius: 10px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+  text-align: center;
+}
+
+#templateNote {
+  display: none;
+  z-index: 100;
+  position: absolute;
+  width: 40%;
+  height: 50%;
+  margin-left: 5%;
+  border: 0.2vw rgb(228, 218, 218) solid;
+  border-radius: 5px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+  background: rgb(219, 216, 216);
+}
+
+textarea {
+  background: lightblue;
+  border: 0.1vw white solid;
+  border-radius: 10px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+#template-title {
+  font-size: 30px;
+  font-weight: bold;
+  width: 50%;
+}
+
+#template-paragraph {
+  width: 50%;
+  min-height: 50%;
+}
+
+.notes {
+
+  border: 1px solid black;
+  background: rgb(240, 222, 222);
+  overflow: auto;
+  width: 60%;
+  max-width: 300px;
+  min-width: 200px;
+
+  font-size: 15px;
+  margin: 1vw;
+
+  border: 0.2vw rgb(228, 218, 218) solid;
+  border-radius: 5px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+
+  display: grid;
+  grid-template-rows: [timestamp] 1fr [header] 2fr [body] 10fr;
+  grid-template-columns: [title] 50% [completed] 50%;
+}
+
+.timestamp {
+  grid-row: timestamp/ span 1;
+  grid-column: span 2;
+  text-align: right;
+  width: 100%;
+  background: rgb(240, 222, 222);
+}
+
+.title-completed-wrapper {
+  grid-row: header;
+  grid-column: span 2;
+  border-bottom: 0.2vw #585151dc solid;
+  border-radius: 5px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+  display: flex;
+}
+
+.title {
+  font-weight: bold;
+  border-right: 0.2vw #585151dc solid;
+  border-left: 0.2vw #585151dc solid;
+  flex-grow: 2;
+  text-transform: capitalize;
+  background: lightblue;
+  left: 1%;
+  border-radius: 5px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+}
+
+.completed {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.checkmark {
+  background-image: url("../../assets/images/checkmark2.png");
+}
+
+.nocheckmark {
+  background-image: url("../../assets/images/notcheckmark2.png");
+}
+
+.notes .completed button {
+  position: relative;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+}
+
+.title,
+.completed,
+.notes p {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+
+.notes p {
+  grid-row: body;
+  grid-column: span 2;
+  border: 0.2vw white solid;
+  border-radius: 3px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.26);
+  background: lightblue;
+  width: 95%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  left: 2%;
+  word-wrap: break-word;
+}
+
+@media (max-width: 575px) {
+  #main-note-container {
+    width: 90vh;
+    height: 100vh;
+  }
+}
