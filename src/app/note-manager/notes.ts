@@ -11,6 +11,7 @@ export class Note {
     txt: string;
     complete: boolean;
     id: number;
+    objectForm;
     
   constructor(public titleName:string, public completed:boolean, public bodytxt:string, public idNumb:number) {
     this.div = document.createElement('div');
@@ -62,11 +63,13 @@ export class Note {
   addCSS() {
       this.div.style.border = '1px black solid';
   }
-
-  writeTitle() {
-
+  toObjectForm() {
+    this.objectForm = {
+      task: this.title,
+      complete: this.complete,
+      description: this.body
+    };
   }
-
   
 
   completeNote() {

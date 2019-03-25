@@ -29,6 +29,9 @@
       <button id="newNoteButton" (click)="newNoteWindow($event)">+</button>
       <button (click)="clearNotes($event)">DELETE ALL</button>
     </div>
+    <div id="errorPrintOut"> 
+
+    </div>
     <div id="templateNote">
       <form class="template-note">
         <label for="male">Title:</label>
@@ -40,7 +43,7 @@
       </form>
       <p></p>
       <button (click)="addInputNote($event)">New Note</button>
-      <button (click)="cancelNewNote($event)">Cancel</button>
+      <button (click)="cancelNewNote()">Cancel</button>
     </div>
   </div>
 
